@@ -1,35 +1,81 @@
 pragma solidity >=0.4.22 <0.7.0;
 
 contract FauxFinderTransactions {
-    uint256 Tcount;
+    
+    address public owner; 
+    constructor(){
+        owner = msg.sender;
+    }
 
-    event transfer(address from, address receiver, uint amount, string message, uint256 timestamp, string keyword);
+    uint productID = 0;
+    
 
-    struct TransferStruct {
 
-        address sender;
-        address receiver;
-        uint amount;
-        string message;
-        uint256 timestamp;
-        string keyword;
+    struct Manufacturer{
+        bool exists;
+        string mName;
+        address mAddress;
 
     }
 
-    TransferStruct[] Transactions;
-
-    function addToBlockChain(address payable receiver, uint amount, string memory message, string memory keyword) public{
-        Tcount = Tcount + 1;
-        Transactions.push(TransferStruct(msg.sender, receiver, amount, message, block.timestamp, keyword));
-
-        emit Transfer(msg.sender, receiver, amount, message, block.timestamp, keyword);
+    struct Product {
+        bool exists;
+        uint pID;
+        string pName;
+        string pDesc;
+        address pManufacturer;
+        address currentOwner;
+        address[] listOfOwners;
     }
 
-    function getAllTransactions() public view returns (TransferStruct[] memory){
-        return Transactions;
+
+    mapping(address => Manufacturer) public Manufacturers;
+    mapping(address => Product) public Products;
+
+
+    event addManufacturer(string mName, address mAddress);
+    event addProduct(uint pID, address pManufacturer);
+    event changedOwnership(uint pid, address newOwner);
+
+
+
+    function createManufacturer(string memory _mName, address _mAddress ) public{
+        require(msg.sender == owner);
+
+        Manufacturer storage m = Manufacturer[_mAddress];
+        m.exists = true;
+        m.mName = _mName;
+        m.mAddress = _mAddress;
+        emit addManufacturer(_mName, _mAddress);
     }
 
-    function getTcount() public view returns(uint256 Tcount){
-        return Tcount;
+    function addProduct(string memory _name, string memory _desc) public{
+        require(Manufacturer[msg.sender].exists == true);
+
+        Product storage p = product[productID];
+        p.exists = true;
+        p.pID = productID;
+        p.pName = _name;
+        p.pDesc = _desc;
+        p.pManufacturer = msg.sender;
+        p.currentOwner = msg.sender;
+        p.listOfOwners.push(msg.sender);
+        productID++;
+
+        emit addProduct(productID-1, msg.sender);
+    }
+
+    function getProduct(uint _id) public view returns(Product memory){
+        return products[_id];
+    }
+
+    function ownershipChange(uint _id, address _newOwner) public {
+        Product storage p = products[_id];
+        require(p.currentOwner == msg.sender);
+
+        p.currentOwner = _newOwner;
+        p.listOfOwners.push(_newOwner);
+        emit changedOwnership(_id, _newOwner);
+
     }
 }
