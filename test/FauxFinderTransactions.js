@@ -34,16 +34,39 @@ contract("FauxFinderTransactions", (accounts) => {
 
     it("Should allow a manufacturer to create a new product", async () => {
 
-        await FauxFinder.createProduct("P0", "Model0", {from:Manufacturer});
+        await FauxFinder.addProduct("P0", "Model0", {from:Manufacturer});
 
         const p = await FauxFinder.getProduct(0)
         
         assert.equal(p.exists, true);
         assert.equal(p.pName,"P0");
         assert.equal(p.pDesc, "Model0")
-        assert.equal(result.address.toLowerCase(),Manufacturer.toLowerCase());
+        assert.equal(p.pManufacturer.toLowerCase(),Manufacturer.toLowerCase());
+        assert.equal(p.currentOwner.toLowerCase(),Manufacturer.toLowerCase());
+        assert.equal(p.listOfOwners.toLowerCase(),Manufacturer.toLowerCase());
     })
 
-    
+    it('allows Manufacturer to sell p0 to customer', async () => {
+
+        await FauxFinder.ownershipChange(0, c1, {from: Manufacturer});
+
+        const p0 = await FauxFinder.getProduct(0);
+
+        assert.equal(p0.currentOwner.toLowerCase(), c1,toLowerCase());
+        assert.equal(p0.listOfOwners[0].toLowerCase(),Manufacturer.toLowerCase());
+        assert.equal(p0.listOfOwners[1].toLowerCase(),c1.toLowerCase());
+
+    })
+
+    it('allows customer 1 to sell to customer 2', async () => {
+
+        await FauxFinder.ownershipChange(0, c2, {from: c1,});
+        const p0 = await FauxFinder.getProduct()
+        
+        assert.equal(p0,currentOwner.toLowerCase(), c2.toLowerCase());
+        assert.equal(p0.listOfOwners[0].toLowerCase(),Manufacturer.toLowerCase());
+        assert(p0.listOfOwners[1].toLowerCase(),c1.toLowerCase())
+        assert(p0.listOfOwners[2].toLowerCase(),c2.toLowerCase())
+    }) 
 
 })
