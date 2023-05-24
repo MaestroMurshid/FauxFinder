@@ -12,6 +12,9 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.Wallet{
+  text-align: end;
+}
 
 .App-header {
   background-color: #282c34;
@@ -26,6 +29,9 @@
 
 .App-link {
   color: #61dafb;
+}
+.p{
+  text-align: right;
 }
 
 @keyframes App-logo-spin {
