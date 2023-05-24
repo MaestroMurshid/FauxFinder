@@ -3,9 +3,9 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
-
-
 export default class NavbarComp extends Component {
+
+  
 
     render() {
         return (
@@ -18,7 +18,7 @@ export default class NavbarComp extends Component {
               <Nav.Link href="#pricing">Products</Nav.Link>
             </Nav>
             <Navbar.Text>
-            Signed in as: <a>PLACEHOLDER</a>
+            Signed in as: <a></a>
           </Navbar.Text>
           </Container>
         </Navbar>
