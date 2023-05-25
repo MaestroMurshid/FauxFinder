@@ -42,6 +42,15 @@ function App() {
     }
   }
 
+  const allProducts = () => {
+
+    return(
+          console.log(allProducts)
+    )
+
+
+  }
+
   const loadPage = () => {
     console.log(isOwner);
     
@@ -53,7 +62,7 @@ function App() {
               <Container>
                 <Navbar.Brand href="#home">FauxFinder</Navbar.Brand>
                 <Nav className="me-auto">
-                  <Nav.Link href="#home">Products</Nav.Link>
+                  <Nav.Link href="/allProducts">Products</Nav.Link>
                   <Nav.Link href="#features">Add Manufaturer</Nav.Link>
                   <Nav.Link href="#pricing">Transactions</Nav.Link>
                 </Nav>
