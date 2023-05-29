@@ -84,7 +84,7 @@ function App() {
               
             </Navbar>
 
-            <Component Account = {Account} contract = {currentcontract}></Component>
+            <Component account = {Account} contract = {currentcontract}></Component>
           </header>
         </div>
       )
