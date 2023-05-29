@@ -6,12 +6,18 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Web3 from "web3";
 import "./App.css"
-import FauxFinderTransactions from "./contracts/FauxFinderTransactions.json"
 
+import FauxFinderTransactions from "./contracts/FauxFinderTransactions.json"
+import allProducts from "./pages/allProducts";
+import AccountPage from "./pages/Account"
+import addManufacturer from "./pages/addManufacturer";
 
 function App() {
 
+  let Component;
+
   const [Account, setAccount] = useState();
+  const [currentcontract, setcurrentContract] = useState();
   const [isOwner, setIsOwner] = useState('false');
 
   useEffect(() => {
@@ -33,6 +39,7 @@ function App() {
 
     var accounts = await web3.eth.requestAccounts()
     setAccount(accounts[0]);
+    setcurrentContract(contract);
     var owner = await contract.methods.owner().call();
     if (accounts[0] === owner) {
       setIsOwner(true)
@@ -42,14 +49,20 @@ function App() {
     }
   }
 
-  const allProducts = () => {
-
-    return(
-          console.log(allProducts)
-    )
 
 
+  switch (window.location.pathname){
+    
+    case "/addManufacturer":
+      Component = addManufacturer
+      break;
+    case "/allProducts":
+      Component = allProducts
+      break;
+    default:
+      Component = AccountPage
   }
+
 
   const loadPage = () => {
     console.log(isOwner);
@@ -63,14 +76,15 @@ function App() {
                 <Navbar.Brand href="#home">FauxFinder</Navbar.Brand>
                 <Nav className="me-auto">
                   <Nav.Link href="/allProducts">Products</Nav.Link>
-                  <Nav.Link href="#features">Add Manufaturer</Nav.Link>
+                  <Nav.Link href="/addManufacturer">Add Manufaturer</Nav.Link>
                   <Nav.Link href="#pricing">Transactions</Nav.Link>
                 </Nav>
                 <Navbar.Text>{Account}</Navbar.Text>
               </Container>
+              
             </Navbar>
 
-            <p>Your Account: {Account}</p>
+            <Component Account = {Account} contract = {currentcontract}></Component>
           </header>
         </div>
       )
