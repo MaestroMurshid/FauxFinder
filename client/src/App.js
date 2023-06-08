@@ -11,6 +11,7 @@ import FauxFinderTransactions from "./contracts/FauxFinderTransactions.json"
 import allProducts from "./pages/allProducts";
 import AccountPage from "./pages/Account"
 import addManufacturer from "./pages/addManufacturer";
+import addProduct from "./pages/addProduct";
 
 function App() {
 
@@ -59,6 +60,9 @@ function App() {
     case "/allProducts":
       Component = allProducts
       break;
+    case "/addProduct":
+      Component = addProduct
+      break;
     default:
       Component = AccountPage
   }
@@ -97,21 +101,16 @@ function App() {
             <Navbar.Brand href="#home">FauxFinder</Navbar.Brand>
             <Nav className="me-auto">
                   <Nav.Link href="#home">Owned Products</Nav.Link>
-                  <Nav.Link href="#home">Add Products</Nav.Link>
+                  <Nav.Link href="/addProduct">Add Product</Nav.Link>
                   <Nav.Link href="#features">Sell Product</Nav.Link>
-                </Nav>
-            <Nav className="me-auto">
-
             </Nav>
-            <Navbar.Text>{Account}</Navbar.Text>
           </Container>
         </Navbar>
 
-        <p>Your Account: {Account}</p>
       </header>
-    </div>
+      </div>
       )
-    }
+      }
   }
 
 
