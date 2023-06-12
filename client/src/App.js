@@ -11,9 +11,12 @@ import FauxFinderTransactions from "./contracts/FauxFinderTransactions.json"
 import allProducts from "./pages/allProducts";
 import AccountPage from "./pages/Account"
 import addManufacturer from "./pages/addManufacturer";
+import ownedProducts from "./pages/ownedProducts";
+import sellProduct from "./pages/sellProduct";
 
 function App() {
 
+  var i=0;
   let Component;
 
   const [Account, setAccount] = useState();
@@ -41,6 +44,8 @@ function App() {
     setAccount(accounts[0]);
     setcurrentContract(contract);
     var owner = await contract.methods.owner().call();
+
+
     if (accounts[0] === owner) {
       setIsOwner(true)
     }
@@ -58,6 +63,13 @@ function App() {
       break;
     case "/allProducts":
       Component = allProducts
+      break;
+
+    case "/ownedProducts":
+      Component = ownedProducts
+      break;
+    case "/sellProduct":
+      Component = sellProduct
       break;
     default:
       Component = AccountPage
@@ -96,9 +108,9 @@ function App() {
           <Container>
             <Navbar.Brand href="#home">FauxFinder</Navbar.Brand>
             <Nav className="me-auto">
-                  <Nav.Link href="#home">Owned Products</Nav.Link>
-                  <Nav.Link href="#home">Add Products</Nav.Link>
-                  <Nav.Link href="#features">Sell Product</Nav.Link>
+                  <Nav.Link href="/ownedProducts">Owned Products</Nav.Link>
+
+                  <Nav.Link href="/sellProduct">Sell Product</Nav.Link>
                 </Nav>
             <Nav className="me-auto">
 
@@ -107,7 +119,7 @@ function App() {
           </Container>
         </Navbar>
 
-        <p>Your Account: {Account}</p>
+        <Component account = {Account} contract = {currentcontract}></Component>
       </header>
     </div>
       )
