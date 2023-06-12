@@ -8,7 +8,7 @@ export default class addProduct extends Component{
 
     constructor(props) {
 		super(props)
-		this.state = { name: "", desc: "" }
+		this.state = { name: "",brand:"",sno:"", desc: ""}
 	}
 
 
@@ -22,11 +22,11 @@ export default class addProduct extends Component{
 	handleCreateProduct = async (e) => {
 		e.preventDefault()
 		const { account, contract } = this.props
-		const { name, desc } = this.state
+		const { name,brand,sno, desc } = this.state
 
 		try {
             console.log(name, desc)
-			await contract.methods.createProduct(name, desc).send({from: account})
+			await contract.methods.createProduct(name,brand,sno, desc).send({from: account})
 			window.alert(`${account}Created a Product\n${name}\n${desc}`)
 		}
 		catch (e) {
@@ -46,6 +46,18 @@ render(){
         name="name" 
         value={this.state.name} onChange={this.handleChange}
         />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formProductbrand">
+        <Form.Control type="text" placeholder="Brand Name"
+             name="brand" 
+            value={this.state.desc} onChange={this.handleChange}
+         />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formProductsno">
+        <Form.Control type="text" placeholder="Serial Number"
+             name="sno" 
+            value={this.state.desc} onChange={this.handleChange}
+         />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formProductdesc">

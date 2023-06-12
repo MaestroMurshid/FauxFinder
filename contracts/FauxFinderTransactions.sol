@@ -17,6 +17,8 @@ contract FauxFinderTransactions {
         bool exists;
         uint pID;
         string pName;
+        string brand;
+        string sno;
         string pDesc;
         address pManufacturer;
         address currentOwner;
