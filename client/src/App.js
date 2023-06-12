@@ -77,7 +77,7 @@ function App() {
           <header className="App-Header">
             <Navbar bg="dark" variant="dark">
               <Container>
-                <Navbar.Brand href="/Account">FauxFinder</Navbar.Brand>
+                <Navbar.Brand href="#home">FauxFinder</Navbar.Brand>
                 <Nav className="me-auto">
                   <Nav.Link href="/allProducts">Products</Nav.Link>
                   <Nav.Link href="/addManufacturer">Add Manufaturer</Nav.Link>
@@ -98,7 +98,7 @@ function App() {
       <header className="App-Header">
         <Navbar bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand href="/Account">FauxFinder</Navbar.Brand>
+            <Navbar.Brand href="#home">FauxFinder</Navbar.Brand>
             <Nav className="me-auto">
                   <Nav.Link href="#home">Owned Products</Nav.Link>
                   <Nav.Link href="/addProduct">Add Products</Nav.Link>
