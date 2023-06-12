@@ -1,24 +1,24 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 pragma experimental ABIEncoderV2;
 
-contract FauxFinderTransactions{
-    
-    address public owner = msg.sender; 
-   
+contract FauxFinderTransactions {
+    address public owner = msg.sender;
+
     uint productID = 0;
-    
-  
-    struct Manufacturer{
+
+    struct Manufacturer {
         bool exists;
         string mName;
         address mAddress;
-
     }
 
     struct Product {
         bool exists;
         uint pID;
         string pName;
+        string brand;
+        string sno;
         string pDesc;
         address pManufacturer;
         address currentOwner;
@@ -34,12 +34,14 @@ contract FauxFinderTransactions{
     mapping(address => Manufacturer) public Manufacturers;
     mapping(uint => Product) public Products;
 
-
     event addManufacturer(string mName, address mAddress);
     event addProduct(uint pID, address pManufacturer);
     event changedOwnership(uint pid, address newOwner);
 
-    function createManufacturer(string memory _mName, address _mAddress ) public{
+    function createManufacturer(
+        string memory _mName,
+        address _mAddress
+    ) public {
         require(msg.sender == owner);
 
         Manufacturer storage m = Manufacturers[_mAddress];
@@ -50,7 +52,7 @@ contract FauxFinderTransactions{
         emit addManufacturer(_mName, _mAddress);
     }
 
-    function createProduct(string memory _name, string memory _desc) public{
+    function createProduct(string memory _name, string memory _desc) public {
         require(Manufacturers[msg.sender].exists == true);
 
         Product storage p = Products[productID];
@@ -89,7 +91,6 @@ contract FauxFinderTransactions{
         p.currentOwner = _newOwner;
         p.listOfOwners.push(_newOwner);
         emit changedOwnership(_id, _newOwner);
-
     }
 
 } 

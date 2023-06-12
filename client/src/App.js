@@ -13,6 +13,7 @@ import AccountPage from "./pages/Account"
 import addManufacturer from "./pages/addManufacturer";
 import ownedProducts from "./pages/ownedProducts";
 import sellProduct from "./pages/sellProduct";
+import addProduct from "./pages/addProduct";
 
 function App() {
 
@@ -71,6 +72,9 @@ function App() {
     case "/sellProduct":
       Component = sellProduct
       break;
+    case "/addProduct":
+      Component = addProduct
+      break;
     default:
       Component = AccountPage
   }
@@ -111,6 +115,9 @@ function App() {
                   <Nav.Link href="/ownedProducts">Owned Products</Nav.Link>
 
                   <Nav.Link href="/sellProduct">Sell Product</Nav.Link>
+                  <Nav.Link href="#home">Owned Products</Nav.Link>
+                  <Nav.Link href="/addProduct">Add Products</Nav.Link>
+                  <Nav.Link href="#features">Sell Product</Nav.Link>
                 </Nav>
             <Nav className="me-auto">
 
