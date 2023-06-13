@@ -25,14 +25,10 @@ contract FauxFinderTransactions {
         address[] listOfOwners;
     }
 
-    struct ProductwithManufacturer{
-        uint[] pID;
-        address pManufacturer;
-    }
-    
-    mapping(address => ProductwithManufacturer) public pWithm;
     mapping(address => Manufacturer) public Manufacturers;
+
     mapping(uint => Product) public Products;
+
 
     event addManufacturer(string mName, address mAddress);
     event addProduct(uint pID, address pManufacturer);
@@ -65,9 +61,6 @@ contract FauxFinderTransactions {
         p.listOfOwners.push(msg.sender);
         productID++;
 
-        ProductwithManufacturer storage pWm = pWithm[msg.sender];
-        pWm.pID.push(productID-1);
-
         emit addProduct(productID-1, msg.sender);
     }
 
@@ -75,13 +68,6 @@ contract FauxFinderTransactions {
 
         return Products[_id];
     }
-
-    function getManufacturerAndProduct(address _mAddress) public view returns(ProductwithManufacturer memory){
-
-        
-        return pWithm[_mAddress]; 
-    }
-
 
 
     function ownershipChange(uint _id, address _newOwner) public {

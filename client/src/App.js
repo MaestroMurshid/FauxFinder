@@ -14,6 +14,7 @@ import addManufacturer from "./pages/addManufacturer";
 import ownedProducts from "./pages/ownedProducts";
 import sellProduct from "./pages/sellProduct";
 import addProduct from "./pages/addProduct";
+import scanQR from "./pages/scanQR";
 
 function App() {
 
@@ -46,6 +47,8 @@ function App() {
     setcurrentContract(contract);
     var owner = await contract.methods.owner().call();
 
+    console.log(accounts[0]);
+
 
     if (accounts[0] === owner) {
       setIsOwner(true)
@@ -72,6 +75,9 @@ function App() {
     case "/sellProduct":
       Component = sellProduct
       break;
+    case "/scanQR":
+      Component = scanQR
+    break;
     case "/addProduct":
       Component = addProduct
       break;
@@ -91,18 +97,17 @@ function App() {
               <Container>
                 <Navbar.Brand href="#home">FauxFinder</Navbar.Brand>
                 <Nav className="me-auto">
-                  <Nav.Link href="/allProducts">Products</Nav.Link>
+                  <Nav.Link href="/scanQR">Verify a Product</Nav.Link>
                   <Nav.Link href="/addManufacturer">Add Manufaturer</Nav.Link>
-                  <Nav.Link href="#pricing">Transactions</Nav.Link>
-                </Nav>
-                <Navbar.Text>{Account}</Navbar.Text>
+                  </Nav>
+                <Navbar.Text>Owner: {Account}</Navbar.Text>
               </Container>
               
             </Navbar>
 
             <Component account = {Account} contract = {currentcontract}></Component>
           </header>
-        </div>
+                  </div>
       )
     } else if(!isOwner){
       return (
@@ -112,22 +117,19 @@ function App() {
           <Container>
             <Navbar.Brand href="#home">FauxFinder</Navbar.Brand>
             <Nav className="me-auto">
-                  <Nav.Link href="/ownedProducts">Owned Products</Nav.Link>
-
                   <Nav.Link href="/sellProduct">Sell Product</Nav.Link>
-                  <Nav.Link href="#home">Owned Products</Nav.Link>
                   <Nav.Link href="/addProduct">Add Products</Nav.Link>
-                  <Nav.Link href="#features">Sell Product</Nav.Link>
                 </Nav>
             <Nav className="me-auto">
 
             </Nav>
-            <Navbar.Text>{Account}</Navbar.Text>
+            <Navbar.Text>Manufacturer: {Account}</Navbar.Text>
           </Container>
         </Navbar>
 
-        <Component account = {Account} contract = {currentcontract}></Component>
+        <Component account = {Account} contract = {currentcontract} ></Component>
       </header>
+      
     </div>
       )
     }
